@@ -1,0 +1,42 @@
+* {
+	padding: 0;
+	margin: 0;
+}
+
+li {
+	list-style: none;
+}
+
+h1 {
+	color: red;
+}
+
+div {
+	height: 200px;
+	border: 1px solid black;
+}
+
+#chatLog {
+	overflow: auto;
+}
+
+/* form {
+	display: flex;
+}
+
+input {
+	display: inline;
+}
+
+#name {
+	flex-shrink: 0;
+	width: 100px;
+}
+
+#message {
+	flex-shrink: 1;
+}
+
+.userSection {
+	display: flex;
+} */

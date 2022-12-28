@@ -37,22 +37,25 @@ const wss = new WebSocket.Server({ server });
 // *server.js의 socket은 연결된 브라우저
 // *app.js의 socket은 연결된 서버
 //⬇️⬇️⬇️
+
+//존재하는 소켓을 담을 가상의 DB
+const sockets = [];
 wss.on("connection", (socket) => {
+    sockets.push(socket); //접속한 브라우저를 socketsDB에 담음
     // *서버 전체(wss)에서 connection이 발생했을 때(on), 특정 브라우저(socket, 여기선 localhost:3000)의 상태를 보기 위함
-    console.log("Connected to Browser ✅");
+    console.log(`Connected to Browser ✅`);
     socket.on("close", () => {
         console.log("Disconnected from the Browser❌");
     });
     //브라우저를 켜고 끄는 것을 터미널에서 확인 가능
 
-    socket.send("hello");
+    socket.send("채팅방에 오신 것을 환영합니다.");
     //브라우저에게 전송
 
     socket.on("message", (message) => {
-        console.log(message.toString());
-        //buffer로 와서 해결
+        // const obj = JSON.parse(message);
+        sockets.forEach((appData) => appData.send(`${message.toString()}`)); //buffer로 와서 해결하기 위한 toString
     });
-    //브라우저에서 message가 오면 터미널에서 출력
 });
 // wss.on("connection", (socket) = > {});
 // *cb: callback.
