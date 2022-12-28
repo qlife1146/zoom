@@ -14,8 +14,8 @@ html(lang="en")
 			div#chatLog
 				ul
 			
-			form#name
-				input(id="name" type="text", placeholder = "Nickname" value ="ㅇㅇ")
+			form#name(autocomplete="off") 
+				input(id="name" type="text", placeholder = "Nickname" value ="ㅇㅇ" autocomplete="off")
 				button Save
 			form#message
 				input(id="message" type="text", placeholder = "Write the text.", required)

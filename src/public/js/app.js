@@ -40,6 +40,9 @@ function handleMessageSubmit(event) {
     // socket.send(name.value);
     // console.log(input.value);
     socket.send(makeMessage("new_message", message.value));
+    const li = document.createElement("li");
+    li.innerText = `you> ${message.value}`;
+    messageList.append(li);
     message.value = "";
 }
 
@@ -58,6 +61,5 @@ messageForm.addEventListener("submit", handleMessageSubmit);
 // setTimeout(() => {
 //     socket.send("hello from the browser.");
 // }, 3000);
-
 
 //TODO: 닉네임 submit 없이도 받을 수 있도록 바꾸기. server에서 default로 바꾸기
