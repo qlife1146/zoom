@@ -14,16 +14,23 @@ h1 {
 div {
 	height: 200px;
 	border: 1px solid black;
+	display: flex;
+	width: 100%;
 }
 
 #chatLog {
 	overflow: auto;
 }
 
-/* form {
-	display: flex;
+form {
+	width: 100%;
 }
 
+input {
+	width: 100%;
+}
+
+/* 
 input {
 	display: inline;
 }

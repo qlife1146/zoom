@@ -38,23 +38,41 @@ const wss = new WebSocket.Server({ server });
 // *app.js의 socket은 연결된 서버
 //⬇️⬇️⬇️
 
-//존재하는 소켓을 담을 가상의 DB
-const sockets = [];
-wss.on("connection", (socket) => {
-    sockets.push(socket); //접속한 브라우저를 socketsDB에 담음
-    // *서버 전체(wss)에서 connection이 발생했을 때(on), 특정 브라우저(socket, 여기선 localhost:3000)의 상태를 보기 위함
-    console.log(`Connected to Browser ✅`);
-    socket.on("close", () => {
-        console.log("Disconnected from the Browser❌");
-    });
-    //브라우저를 켜고 끄는 것을 터미널에서 확인 가능
+function onSocketClose() {
+    //      //브라우저를 켜고 끄는 것을 터미널에서 확인 가능
+    console.log("Disconnected from the Browser❌");
+}
 
-    socket.send("채팅방에 오신 것을 환영합니다.");
+// *서버 전체(wss)에서 connection이 발생했을 때(on), 특정 브라우저(socket, 여기선 localhost:3000)의 상태
+const sockets = []; //존재하는 소켓을 담을 가상의 DB
+wss.on("connection", (socket) => {
+    sockets.push(socket); //접속한 브라우저를 socketsDB에 담음]
+    socket["name"] = "ㅇㅇ";
+
+    socket.on("close", onSocketClose);
+
     //브라우저에게 전송
+    socket.send("채팅방에 오신 것을 환영합니다.");
+    // console.log(sockets);
 
     socket.on("message", (message) => {
-        // const obj = JSON.parse(message);
-        sockets.forEach((appData) => appData.send(`${message.toString()}`)); //buffer로 와서 해결하기 위한 toString
+        const obj = JSON.parse(message); //브라우저에서 받은 string을 js로 변환
+        // sockets.forEach((appData) => appData.send(`${message.toString()}`)); //buffer로 와서 해결하기 위한 toString
+        // sockets.forEach((appData) => appData.send(`${obj.type}`));
+        // if (obj.type === "new_message") {
+        //     sockets.forEach((appData) => appData.send(`${obj.payload}`));
+        // } else if (obj.type === "name") {
+        //     console.log(obj.payload);
+        // }
+        switch (obj.type) {
+            case "new_message":
+                sockets.forEach((appData) => appData.send(`${socket.name}: ${obj.payload}`));
+                break;
+            case "name":
+                socket["name"] = obj.payload;
+                console.log(obj.payload.toString());
+                break;
+        }
     });
 });
 // wss.on("connection", (socket) = > {});
