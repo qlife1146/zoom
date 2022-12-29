@@ -1,0 +1,29 @@
+doctype html
+html(lang="en")
+	head
+		meta(charset="UTF-8")
+		meta(name="viewport", content="width=device-width, initial-scale=1.0")
+		title Noom
+		link(rel="stylesheet", href="https://unpkg.com/mvp.css@1.12/mvp.css")
+		link(rel="stylesheet", href="public/css/style.css")
+	body 
+		header
+			h1 Noom
+		main 
+			//- message가 적힐 칸
+			div#chatLog
+				ul
+			
+			form#name(autocomplete="off") 
+				input(id="name" type="text", placeholder = "Nickname" value ="ㅇㅇ" autocomplete="off")
+				button Save
+			form#message
+				input(id="message" type="text", placeholder = "Write the text.", required)
+				button Send
+		button Call
+
+
+
+		script(src="/public/js/app.js")
+		script(src="/public/js/scroll.js")
+

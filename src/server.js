@@ -1,5 +1,6 @@
 import http from "http";
-import WebSocket from "ws";
+// import WebSocket from "ws";
+import SocketIO from "socket.io";
 import express from "express";
 
 const app = express();
@@ -25,10 +26,14 @@ const handleListen = () => console.log(`Listening on http://localhost:3000`);
 
 // *app.listen(3000, handleListen);
 //http server using express.js
-const server = http.createServer(app);
+const httpServer = http.createServer(app);
+const wsServer = SocketIO(httpServer);
+wsServer.on("connection", (socket) => {
+    console.log(socket);
+});
 // *webSocket server on the http server
-const wss = new WebSocket.Server({ server });
-// *webSocket 서버만 사용할 거면 http는 작성하지 않아도 무방. ({}) 안을 비워놔도 모방.
+// const wss = new WebSocket.Server({ server });
+// *webSocket 서버만 사용할 거면 http는 작성하지 않아도 무방. ({}) 안을 비워놔도 무방.
 
 // function handleConnection(socket) {
 //     console.log(socket);
@@ -44,39 +49,39 @@ function onSocketClose() {
 }
 
 // *서버 전체(wss)에서 connection이 발생했을 때(on), 특정 브라우저(socket, 여기선 localhost:3000)의 상태
-const sockets = []; //존재하는 소켓을 담을 가상의 DB
-wss.on("connection", (socket) => {
-    sockets.push(socket); //접속한 브라우저를 socketsDB에 담음]
-    socket["name"] = "ㅇㅇ";
+// const sockets = []; //존재하는 소켓을 담을 가상의 DB
+// wss.on("connection", (socket) => {
+//     sockets.push(socket); //접속한 브라우저를 socketsDB에 담음]
+//     socket["name"] = "ㅇㅇ";
 
-    socket.on("close", onSocketClose);
+//     socket.on("close", onSocketClose);
 
-    //브라우저에게 전송
-    socket.send("채팅방에 오신 것을 환영합니다.");
-    // console.log(sockets);
+//     //브라우저에게 전송
+//     socket.send("채팅방에 오신 것을 환영합니다.");
+//     // console.log(sockets);
 
-    socket.on("message", (message) => {
-        const obj = JSON.parse(message); //브라우저에서 받은 string을 js로 변환
-        // sockets.forEach((appData) => appData.send(`${message.toString()}`)); //buffer로 와서 해결하기 위한 toString
-        // sockets.forEach((appData) => appData.send(`${obj.type}`));
-        // if (obj.type === "new_message") {
-        //     sockets.forEach((appData) => appData.send(`${obj.payload}`));
-        // } else if (obj.type === "name") {
-        //     console.log(obj.payload);
-        // }
-        switch (obj.type) {
-            case "new_message":
-                sockets.forEach((appData) => appData.send(`${socket.name}: ${obj.payload}`));
-                break;
-            case "name":
-                socket["name"] = obj.payload;
-                console.log(obj.payload.toString());
-                break;
-        }
-    });
-});
-// wss.on("connection", (socket) = > {});
-// *cb: callback.
-// *socket: 연결된 다른 유저(서버 <-연결-> 브라우저)
+//     socket.on("message", (message) => {
+//         const obj = JSON.parse(message); //브라우저에서 받은 string을 js로 변환
+//         // sockets.forEach((appData) => appData.send(`${message.toString()}`)); //buffer로 와서 해결하기 위한 toString
+//         // sockets.forEach((appData) => appData.send(`${obj.type}`));
+//         // if (obj.type === "new_message") {
+//         //     sockets.forEach((appData) => appData.send(`${obj.payload}`));
+//         // } else if (obj.type === "name") {
+//         //     console.log(obj.payload);
+//         // }
+//         switch (obj.type) {
+//             case "new_message":
+//                 sockets.forEach((appData) => appData.send(`${socket.name}: ${obj.payload}`));
+//                 break;
+//             case "name":
+//                 socket["name"] = obj.payload;
+//                 console.log(obj.payload.toString());
+//                 break;
+//         }
+//     });
+// });
+// // wss.on("connection", (socket) = > {});
+// // *cb: callback.
+// // *socket: 연결된 다른 유저(서버 <-연결-> 브라우저)
 
-server.listen(3000, handleListen);
+httpServer.listen(3000, handleListen);
