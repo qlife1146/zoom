@@ -17,6 +17,7 @@
         "@babel/core": "^7.20.7",
         "@babel/node": "^7.20.7",
         "@babel/preset-env": "^7.20.2",
+        "@socket.io/admin-ui": "^0.5.1",
         "express": "^4.18.2",
         "http": "^0.0.1-security",
         "http-server": "^14.1.1",
