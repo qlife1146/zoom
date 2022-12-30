@@ -24,7 +24,7 @@ Node.JS를 이해하기 위해 해본 줌 클론 코딩.
     * [emit](https://socket.io/docs/v4/emitting-events/#basic-emit): 이벤트 이름을 직접 짓고, 여러 argument를 전송할 수 있음. js object도 보낼 수 있어 굳이 stringify를 해줄 필요도 없음. emit -> on
     * var(.to(param)).emit("eventName"); -> var.on("eventName", param ...) / to로 보내고 on으로 받을 수 있음
     
-![flow-1](https://user-images.githubusercontent.com/32091837/210031867-0b098814-0b3e-48f8-8fef-d2c867ad1da7.png)
+![flow2](https://user-images.githubusercontent.com/32091837/210066493-4cf68d18-2501-48f4-9ac2-2a68f1536d7d.png)
 
 ## 참조
 
