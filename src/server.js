@@ -29,7 +29,31 @@ const handleListen = () => console.log(`Listening on http://localhost:3000`);
 const httpServer = http.createServer(app);
 const wsServer = SocketIO(httpServer);
 wsServer.on("connection", (socket) => {
-    console.log(socket);
+    socket["userName"] = "Anonymous";
+    socket.onAny((event) => {
+        console.log(`socket Event: ${event}`);
+    });
+    socket.on("enter_room", (userName, roomName, done /*, test , testStr*/) => {
+        socket.join(roomName);
+        done();
+        socket.to(roomName).emit("welcome", socket.userName); //roomName에 있는 사람들에게 모두 전송
+
+        // setTimeout(() => {
+        //     done(roomName); //backend가 frontend에게 명령을 내릴 수 있음
+        // }, 1000);
+        // test("Hello");
+        // console.log(testStr);
+    });
+    socket.on("disconnecting", () => {
+        socket.rooms.forEach((room) => {
+            socket.to(room).emit("bye", socket.userName);
+        });
+    });
+    socket.on("newMessage", (msg, room, done) => {
+        socket.to(room).emit("newMessage", `${socket.userName}: ${msg}`);
+        done();
+    });
+    socket.on("userName", (userName) => (socket["userName"] = userName));
 });
 // *webSocket server on the http server
 // const wss = new WebSocket.Server({ server });

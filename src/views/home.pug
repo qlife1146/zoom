@@ -3,10 +3,26 @@ html(lang='en')
 	head
 		meta(charset='utf-8')
 		title TITLE
+		link(rel="stylesheet", href="style.css")
+		link(rel="stylesheet", href="style.css")
 	body
 	header
 		h1 Chat
 	main
-
+		div#welcome
+			h2 Outside
+			form
+				input#userName(placeholder="user name", type="text")
+				input#roomName(placeholder="room name", required, type="text")
+				button Enter room
+		div#room
+			h2 ChatRoom
+			ul
+			form#name
+				input(placeholder="name", required, type="text")
+				button Save
+			form#msg
+				input(placeholder="message...", required, type="text")
+				button Send
 	script(src="/socket.io/socket.io.js")
 	script(src="/public/js/app.js")

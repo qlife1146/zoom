@@ -17,6 +17,13 @@ Node.JS를 이해하기 위해 해본 줌 클론 코딩.
 - app.js는 백엔드의 상황을 감지, server.js에서 on은 브라우저 상황을 감지
 ![image](https://user-images.githubusercontent.com/32091837/209548390-ea488394-be4a-4818-9231-f6aa1794361a.png)
 
+
+- socketIO의 시작: 매우 짧은 코드로 양방향 소통을 시작할 수 있는 프레임워크.
+- 브라우저와 서버의 연결이 끊기면 서버가 계속 재접속을 시도함
+- 용어
+    * [emit](https://socket.io/docs/v4/emitting-events/#basic-emit): 이벤트 이름을 직접 짓고, 여러 argument를 전송할 수 있음. js object도 보낼 수 있어 굳이 stringify를 해줄 필요도 없음. emit -> on
+    * var(.to(param)).emit("eventName"); -> var.on("eventName", param ...) / to로 보내고 on으로 받을 수 있음
+
 ## 참조
 
 -   https://ninjaggobugi.tistory.com/9
@@ -24,3 +31,5 @@ Node.JS를 이해하기 위해 해본 줌 클론 코딩.
 -   https://inpa.tistory.com/entry/WEB-%F0%9F%8C%90-%EC%9B%B9-%EC%86%8C%EC%BC%93-Socket-%EC%97%AD%EC%82%AC%EB%B6%80%ED%84%B0-%EC%A0%95%EB%A6%AC
 -   https://hashnode.com/post/web-socket-vs-http-cky8g7b7u0tqt5ns17c9i7j1p
 -   https://velog.io/@outclassstudio/WebSocket%EC%9D%B4%EB%9E%80
+---
+-   
