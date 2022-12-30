@@ -34,3 +34,6 @@ Node.JS를 이해하기 위해 해본 줌 클론 코딩.
 -   https://hashnode.com/post/web-socket-vs-http-cky8g7b7u0tqt5ns17c9i7j1p
 -   https://velog.io/@outclassstudio/WebSocket%EC%9D%B4%EB%9E%80
 ---
+
+## 추후 계획
+멀티 요트 다이스를 만들고 싶다.
